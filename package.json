@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@gitlab.com/Ilshidur/socket.io-connections.git"
+    "url": "https://github.com/Ilshidur/socket.io-connections.git"
   },
   "keywords": [
     "socket.io",
@@ -21,7 +21,7 @@
   "author": "Ilshidur",
   "license": "MIT",
   "bugs": {
-    "url": "https://gitlab.com/Ilshidur/socket.io-connections/issues"
+    "url": "https://github.com/Ilshidur/socket.io-connections/issues"
   },
-  "homepage": "https://gitlab.com/Ilshidur/socket.io-connections#readme"
+  "homepage": "https://github.com/Ilshidur/socket.io-connections#readme"
 }
