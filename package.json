@@ -1,0 +1,27 @@
+{
+  "name": "socket.io-connections",
+  "version": "0.0.1",
+  "description": "Events-based socket.io connections monitoring",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/Ilshidur/socket.io-connections.git"
+  },
+  "keywords": [
+    "socket.io",
+    "socket",
+    "connection",
+    "monitor",
+    "event",
+    "metric"
+  ],
+  "author": "Ilshidur",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://gitlab.com/Ilshidur/socket.io-connections/issues"
+  },
+  "homepage": "https://gitlab.com/Ilshidur/socket.io-connections#readme"
+}
