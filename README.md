@@ -6,7 +6,6 @@
 [![Known Vulnerabilities][vulnerabilities-badge]][vulnerabilities-url]
 [![dependency status][dependency-badge]][dependency-url]
 [![devdependency status][devdependency-badge]][devdependency-url]
-[![build status][build-badge]][build-url]
 [![Code Climate][maintainability-badge]][maintainability-url]
 [![downloads][downloads-badge]][downloads-url]
 
@@ -25,8 +24,7 @@ const io = require('socket.io')(80);
 const SocketMonitoring = require('socket.io-connections');
 
 const monitoring = new SocketMonitoring(io, {
-  namespaces: 'chat', // Optional
-
+  namespaces: 'chat' // Optional
 });
 
 monitoring.on('connections-count-change', (count, socket) => {
@@ -68,8 +66,6 @@ SOFTWARE.
 [dependency-url]: https://david-dm.org/ilshidur/socket.io-connections
 [devdependency-badge]: https://david-dm.org/ilshidur/socket.io-connections/dev-status.svg
 [devdependency-url]: https://david-dm.org/ilshidur/socket.io-connections#info=devDependencies
-[build-badge]: https://travis-ci.org/Ilshidur/socket.io-connections.svg
-[build-url]: https://travis-ci.org/Ilshidur/socket.io-connections
 [maintainability-badge]: https://api.codeclimate.com/v1/badges/392fe7727ba401215c0d/maintainability
 [maintainability-url]: https://codeclimate.com/github/Ilshidur/socket.io-connections/maintainability
 [downloads-badge]: https://img.shields.io/npm/dt/socket.io-connections.svg
