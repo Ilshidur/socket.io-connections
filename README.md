@@ -40,7 +40,7 @@ monitoring.start();
 
 MIT License
 
-Copyright (c) 2017-2018 **Nicolas COUTIN**
+Copyright (c) 2018 **Nicolas COUTIN**
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -70,7 +70,7 @@ SOFTWARE.
 [devdependency-url]: https://david-dm.org/ilshidur/socket.io-connections#info=devDependencies
 [build-badge]: https://travis-ci.org/Ilshidur/socket.io-connections.svg
 [build-url]: https://travis-ci.org/Ilshidur/socket.io-connections
-[maintainability-badge]: https://api.codeclimate.com/v1/badges/1a591845db8b23c4cd06/maintainability
+[maintainability-badge]: https://api.codeclimate.com/v1/badges/392fe7727ba401215c0d/maintainability
 [maintainability-url]: https://codeclimate.com/github/Ilshidur/socket.io-connections/maintainability
 [downloads-badge]: https://img.shields.io/npm/dt/socket.io-connections.svg
 [downloads-url]: https://www.npmjs.com/package/socket.io-connections
