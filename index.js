@@ -8,16 +8,17 @@ function updateConnectedAppsCount(socket) {
 
 module.exports = class SocketMonitoring extends EventEmitter {
   constructor(io, { namespaces = null } = {}) {
+    super();
     this.io = io;
     this.namespaces = namespaces;
   }
 
   start() {
-    const namespaces = this.io.of(this.namespaces || '/');
+    const namespaces = this.io.of(this.namespaces || '/');
 
     namespaces.on('connect', (socket) => {
       updateConnectedAppsCount.call(this, socket);
-  
+
       socket.on('disconnect', async (reason) => {
         updateConnectedAppsCount.call(this, socket);
       });
