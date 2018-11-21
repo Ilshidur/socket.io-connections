@@ -1,6 +1,6 @@
 {
   "name": "socket.io-connections",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Events-based socket.io connections monitoring",
   "main": "index.js",
   "scripts": {
