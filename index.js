@@ -1,27 +1,40 @@
-const EventEmitter = require('events');
+const SocketMonitoring = require('socket.io-connections');
 
-function updateConnectedAppsCount(socket) {
-  const sockets = Object.values(socket.nsp.connected);
+const Prometheus = require('./metrics');
+const { client: redisClient } = require('./redis');
 
-  this.emit('connections-count-change', sockets.length, socket);
+const { PREFIX, connectedApplicationsMetric } = Prometheus;
+
+// The amount of connected applications is stored in Redis.
+// Each time an app connects/disconnects, the total count will be updated and
+// monitored by Prometheus.
+
+function collectSocketsMetrics(io) {
+  const monitoring = new SocketMonitoring(io, {
+    namespaces: /^\/app-official|\/lib*/,
+    prometheus: {
+      prefix: PREFIX,
+      client: Prometheus,
+    },
+  });
+
+  monitoring.metrics.connectionsCount.addLabel('version', socket => socket.handshake.query.appVersion || '(unknown version)');
+
+  monitoring.on('connections-count-change', async (count, socket) => {
+    const appVersion = socket.handshake.query.appVersion || '(unknown version)';
+    const namespaceName = socket.nsp.name;
+
+    connectedApplicationsMetric
+      .labels(appVersion, namespaceName)
+      .set(count);
+    await redisClient.setAsync('total_connected_apps_count', count);
+  });
+
+  // TODO:
+  monitoring.on('emit', () => {});
+  monitoring.on('receive', () => {});
+
+  monitoring.start();
 }
 
-module.exports = class SocketMonitoring extends EventEmitter {
-  constructor(io, { namespaces = null } = {}) {
-    super();
-    this.io = io;
-    this.namespaces = namespaces;
-  }
-
-  start() {
-    const namespaces = this.io.of(this.namespaces || '/');
-
-    namespaces.on('connect', (socket) => {
-      updateConnectedAppsCount.call(this, socket);
-
-      socket.on('disconnect', async (reason) => {
-        updateConnectedAppsCount.call(this, socket);
-      });
-    });
-  }
-};
+module.exports = { collectSocketsMetrics };
