@@ -11,7 +11,7 @@
 
 [![NPM][npm-stats-badge]][npm-stats-url]
 
-> Events-based socket.io connections monitoring.
+> Events-based socket.io connections monitoring (optional : Prometheus metrics).
 
 ## Installation
 
@@ -23,16 +23,47 @@
 const io = require('socket.io')(80);
 const SocketMonitoring = require('socket.io-connections');
 
-const monitoring = new SocketMonitoring(io, {
-  namespaces: 'chat' // Optional
+const chatMonitoring = new SocketMonitoring(io, {
+  namespaces: '/chat', // Optional
 });
 
-monitoring.on('connections-count-change', (count, socket) => {
+chatMonitoring.on('connections-count-change', (count, socket) => {
   // ...
+});
+
+chatMonitoring.start();
+```
+
+### With Prometheus automatic metrics
+
+You can enable the Prometheus automatic metrics by providing the `prometheus` option :
+
+```javascript
+const io = require('socket.io')(80);
+const SocketMonitoring = require('socket.io-connections');
+const Prometheus = require('prom-client');
+
+const monitoring = new SocketMonitoring(io, {
+  prometheus: { // Enable Prometheus automatic metrics
+    client: Prometheus,
+    prefix: 'prefix_'
+  }
 });
 
 monitoring.start();
 ```
+
+**Available metrics :**
+
+| Metric name                                  | Description                                                                              | Associated event             |
+|----------------------------------------------|------------------------------------------------------------------------------------------|------------------------------|
+| `<prefix>_socket_io_connections_count_total` | Fired when a socket connects/disconnects, thus changing the total open connection count. | `'connections-count-change'` |
+|                                              |                                                                                          |                              |
+|                                              |                                                                                          |                              |
+
+## API
+
+*Coming soon ...*
 
 ## License
 
