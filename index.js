@@ -3,7 +3,7 @@ const EventEmitter = require('events');
 class Metric {
   constructor(model) {
     this.model = model;
-    this.labels = {}
+    this.labels = {};
   }
 
   addLabel(name, fn) {
@@ -14,7 +14,7 @@ class Metric {
 
 function createConnectionsCountMetric(Prometheus, prefix) {
   const model = new Prometheus.Gauge({
-    name: `${prefix}_socket_io_connections_count_total`,
+    name: `${prefix}socket_io_connections_count_total`,
     help: 'Total socket.io connections count',
     labelNames: [],
   });
@@ -27,9 +27,12 @@ function createConnectionsCountMetric(Prometheus, prefix) {
 function updateConnectedAppsCount(socket) {
   const sockets = Object.values(socket.nsp.connected);
   this.emit('connections-count-change', sockets.length, socket);
-  this.metrics.connectionsCount
-    .labels(...Object.values(this.metrics.connectionsCount.labels).map(fn => fn(socket)))
-    .set(sockets.length);
+
+  if (this.metrics.connectionsCount) {
+    this.metrics.connectionsCount.model
+      .labels(...Object.values(this.metrics.connectionsCount.labels).map(fn => fn(socket)))
+      .set(sockets.length);
+  }
 }
 
 module.exports = class SocketMonitoring extends EventEmitter {
@@ -40,7 +43,7 @@ module.exports = class SocketMonitoring extends EventEmitter {
 
     if (prometheus) {
       this.metrics = {
-        connectionsCount: createConnectionsCountMetric(prometheus.client, prometheus.prefix)
+        connectionsCount: createConnectionsCountMetric(prometheus.client, prometheus.prefix),
       };
     }
   }
@@ -51,7 +54,7 @@ module.exports = class SocketMonitoring extends EventEmitter {
     namespaces.on('connect', (socket) => {
       updateConnectedAppsCount.call(this, socket);
 
-      socket.on('disconnect', async (reason) => {
+      socket.on('disconnect', async () => {
         updateConnectedAppsCount.call(this, socket);
       });
     });
