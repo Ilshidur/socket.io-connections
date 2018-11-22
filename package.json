@@ -1,7 +1,7 @@
 {
   "name": "socket.io-connections",
-  "version": "0.0.2",
-  "description": "Events-based socket.io connections monitoring",
+  "version": "0.0.3",
+  "description": "Events-based socket.io connections monitoring (optional : Prometheus metrics).",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
