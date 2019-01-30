@@ -1,4 +1,4 @@
-# socket.io-connections
+# 📊 socket.io-connections
 
 ![stability-unstable](https://img.shields.io/badge/stability-unstable-yellow.svg)
 
